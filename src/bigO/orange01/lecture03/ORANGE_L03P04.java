@@ -187,6 +187,7 @@ int main() {
         solve();
     }
 }*/
+<<<<<<< HEAD
 //-----------java
 /*import java.util.Arrays;
 import java.util.Scanner;
@@ -373,6 +374,194 @@ if __name__ == "__main__":
         solve()*/
 
  //*/
+=======
+-----------java
+/*import java.util.Arrays;
+import java.util.Scanner;
+import java.util.TreeSet;
+import java.util.ArrayList;
+
+public class Main {
+    static final private String VOWELS = "AEOYIU";
+    static final private int[][] DIRs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+    static private boolean start;
+    static private Scanner sc;
+
+    static int count_vowels(String word) {
+        int res = 0;
+        for (int i = 0; i < word.length(); ++i) {
+            if (VOWELS.indexOf(word.charAt(i)) > -1) {
+                res += 1;
+            }
+        }
+        return res;
+    }*/
+
+    /**
+     * board: current board to find words
+     * x, y: current cell
+     * cur_word: current cummulative word
+     * visited: visiting state for each cell
+     * found_words: target location for legal words
+     **/
+    /*static void find_words(char[][] board, int x, int y, String cur_word, boolean[][] visited, TreeSet<String> found_words) {
+        if (cur_word.length() == 4) {
+            if (count_vowels(cur_word) == 2) {
+                found_words.add(cur_word);
+            }
+            return;
+        }
+
+        visited[x][y] = true;
+        for (int[] d : DIRs) {
+            int nx = x + d[0], ny = y + d[1];
+            if (nx >= 0 && nx < 4 && ny >= 0 && ny < 4 && !visited[nx][ny]) {
+                String new_cur_word = cur_word + board[nx][ny];
+                find_words(board, nx, ny, new_cur_word, visited, found_words);
+            }
+        }
+        visited[x][y] = false;
+    }
+
+    static void solve() {
+        char[][][] board = new char[2][4][4];
+
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                char ch = sc.next().charAt(0);
+                if (ch == '#') {
+                    System.exit(0);
+                }
+                board[j >> 2][i][j & 3] = ch; // characters 0..3 -> board[0][i][0..3], characters 4..7 -> board[1][i][0..3]
+            }
+        }
+
+        if (!start) {
+            System.out.print('\n');
+        }
+        start = false;
+
+        // find words for both boards
+        boolean[][] visited = new boolean[4][4];
+        for (boolean[] row : visited) {
+            Arrays.fill(row, false);
+        }
+      
+        TreeSet<String>[] words = new TreeSet[2];
+        for (int i = 0; i < words.length; i++) {
+            words[i] = new TreeSet<>();
+        }
+      
+        for (int board_id : new int[] {0, 1}) {
+            for (int i = 0; i < 4; ++i) {
+                for (int j = 0; j < 4; ++j) {
+                    String cur_word = "";
+                    cur_word += board[board_id][i][j];
+                    find_words(board[board_id], i, j, cur_word, visited, words[board_id]);
+                }
+            }
+        }
+
+        ArrayList<String> common_words = new ArrayList<>();
+        for (String word : words[0]) {
+            if (words[1].contains(word)) {
+                common_words.add(word);
+            }
+        }
+
+        if (common_words.size() == 0) {
+            System.out.print("There are no common words for this pair of boggle boards.\n");
+        }
+        else {
+            for (String word : common_words) {
+                System.out.print(word + "\n");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        start = true;
+        sc = new Scanner(System.in);
+        while (true) {
+            solve();
+        }
+    }
+}*/
+/*
+VOWELS = "AEOYIU"
+DIRs = [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]]
+start = True
+
+def count_vowels(word):
+        res = 0
+        for w in word:
+                if w in VOWELS:
+                        res += 1
+        return res
+
+def find_words(board, x, y, cur_word, visited, found_words):
+        if len(cur_word) == 4:
+                if count_vowels(cur_word) == 2:
+                        found_words.add(cur_word)
+                return
+        
+        visited[x][y] = True
+        for d in DIRs:
+                nx = x + d[0]
+                ny = y + d[1]
+                if 0 <= nx < 4 and 0 <= ny < 4 and not visited[nx][ny]:
+                   new_cur_word = cur_word + board[nx][ny]
+                   find_words(board, nx, ny, new_cur_word, visited, found_words)
+        visited[x][y] = False
+
+def solve():
+        global start
+
+        board = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(2)]
+
+        if not start:
+            input()
+
+        for i in range(4):
+                line = list(input().split())
+                if line[0] == '#':
+                        exit()
+                for j in range(8):
+                        board[j >> 2][i][j & 3] = line[j]
+
+        if not start:
+            print()
+        start = False
+
+        visited = [[False for _ in range(4)] for _ in range(4)]
+        words = [set() for _ in range(2)]
+
+        for board_id in [0, 1]:
+                for i in range(4):
+                        for j in range(4):
+                                cur_word = ""
+                                cur_word += board[board_id][i][j]
+                                find_words(board[board_id], i, j, cur_word, visited, words[board_id])
+        
+        common_words = list()
+        for word in words[0]:
+                if word in words[1]:
+                        common_words.append(word)
+        
+        common_words.sort()
+        if len(common_words) == 0:
+            print("There are no common words for this pair of boggle boards.")
+        else:
+                for word in common_words:
+                    print(word)
+
+
+if __name__ == "__main__":
+    while True:
+        solve()*/
+
+ */
+
 public class ORANGE_L03P04 {
 
 }
