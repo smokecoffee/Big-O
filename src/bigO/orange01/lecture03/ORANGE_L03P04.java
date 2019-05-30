@@ -187,7 +187,6 @@ int main() {
         solve();
     }
 }*/
-<<<<<<< HEAD
 //-----------java
 /*import java.util.Arrays;
 import java.util.Scanner;
@@ -374,8 +373,7 @@ if __name__ == "__main__":
         solve()*/
 
  //*/
-=======
------------java
+
 /*import java.util.Arrays;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -558,9 +556,9 @@ def solve():
 
 if __name__ == "__main__":
     while True:
-        solve()*/
+        solve()
+*/
 
- */
 
 public class ORANGE_L03P04 {
 
